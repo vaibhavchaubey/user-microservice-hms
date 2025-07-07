@@ -1,4 +1,7 @@
 package com.hms.user.dto;
 
-public class Roles {
+public enum Roles {
+    PATIENT,
+    DOCTOR,
+    ADMIN,
 }
