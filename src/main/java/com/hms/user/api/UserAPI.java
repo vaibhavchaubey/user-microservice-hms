@@ -24,6 +24,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/user")
@@ -67,7 +69,11 @@ public class UserAPI {
         final String jwt = jwtUtil.generateToken(userDetails);
 
         return new ResponseEntity<>(jwt, HttpStatus.OK);
+    }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return new ResponseEntity<>("Test", HttpStatus.OK);
     }
 
 }

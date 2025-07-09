@@ -21,11 +21,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
-                        requests -> requests.requestMatchers("/**").permitAll().anyRequest().authenticated())
+                        auth -> auth.requestMatchers(request -> "SECRET".equals(request.getHeader("X-Secret-Key")))
+                                .permitAll().anyRequest().denyAll())
                 .build();
+
     }
 
     @Bean
