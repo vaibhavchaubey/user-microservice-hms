@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         throw new UnsupportedOperationException("Unimplemented method: updateUser");
     }
+
+    @Override
+    public UserDTO getUser(String email) throws HmsException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new HmsException("USER_NOT_FOUND")).toDTO();
+    }
 }

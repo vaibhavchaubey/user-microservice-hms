@@ -12,4 +12,6 @@ public interface UserService {
 
     public void updateUser(UserDTO userDTO);
 
+    public UserDTO getUser(String email) throws HmsException;
+
 }
