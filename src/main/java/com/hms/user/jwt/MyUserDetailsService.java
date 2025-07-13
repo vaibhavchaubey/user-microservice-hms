@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.hms.user.dto.UserDTO;
 import com.hms.user.exception.HmsException;
-import com.hms.user.repository.UserRepository;
 import com.hms.user.service.UserService;
 
 @Service
