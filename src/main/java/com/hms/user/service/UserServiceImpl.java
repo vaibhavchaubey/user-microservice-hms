@@ -10,8 +10,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ApiService apiService;
+
     @Override
     public void registerUser(UserDTO userDTO) throws HmsException {
         Optional<User> opt = userRepository.findByEmail(userDTO.getEmail());
@@ -27,8 +32,10 @@ public class UserServiceImpl implements UserService {
             throw new HmsException("USER_ALREADY_EXISTS");
         }
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userRepository.save(userDTO.toEntity());
 
+        Long profileId = apiService.addProfile(userDTO).block();
+        userDTO.setProfileId(profileId);
+        userRepository.save(userDTO.toEntity());
     }
 
     @Override
