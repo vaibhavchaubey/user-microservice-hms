@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.hms.user.config.FeignClientInterceptor;
 import com.hms.user.dto.UserDTO;
 
+
 @FeignClient(name = "profile-microservice-hms", configuration = FeignClientInterceptor.class)
 public interface ProfileClient {
 
