@@ -1,18 +1,18 @@
 package com.hms.user.service;
 
-import com.hms.user.clients.ProfileClient;
-import com.hms.user.dto.Roles;
-import com.hms.user.dto.UserDTO;
-import com.hms.user.entity.User;
-import com.hms.user.exception.HmsException;
-import com.hms.user.repository.UserRepository;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.hms.user.clients.ProfileClient;
+import com.hms.user.dto.Roles;
+import com.hms.user.dto.UserDTO;
+import com.hms.user.entity.User;
+import com.hms.user.exception.HmsException;
+import com.hms.user.repository.UserRepository;
 
 @Service
 @Transactional
@@ -74,5 +74,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUser(String email) throws HmsException {
         return userRepository.findByEmail(email).orElseThrow(() -> new HmsException("USER_NOT_FOUND")).toDTO();
+    }
+
+    @Override
+    public Long getProfile(Long id) throws HmsException {
+        User user = userRepository.findById(id).orElseThrow(() -> new HmsException("USER_NOT_FOUND"));
+        if (user.getRole().equals(Roles.DOCTOR)) {
+            return profileClient.getDoctor(user.getProfileId());
+        } else if (user.getRole().equals(Roles.PATIENT)) {
+            return profileClient.getPatient(user.getProfileId());
+        }
+        throw new HmsException("INVALID_USER_ROLE");
     }
 }

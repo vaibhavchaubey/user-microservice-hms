@@ -14,4 +14,5 @@ public interface UserService {
 
     public UserDTO getUser(String email) throws HmsException;
 
+    public Long getProfile(Long id) throws HmsException;
 }

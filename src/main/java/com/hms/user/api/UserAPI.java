@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,4 +75,8 @@ public class UserAPI {
         return new ResponseEntity<>("Test", HttpStatus.OK);
     }
 
+    @GetMapping("/getProfile/{id}")
+    public ResponseEntity<Long> getProfile(@PathVariable Long id) throws HmsException {
+        return new ResponseEntity<>(userService.getProfile(id), HttpStatus.OK);
+    }
 }
