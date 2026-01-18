@@ -1,5 +1,7 @@
 package com.hms.user.dto;
 
+import java.time.LocalDateTime;
+
 import com.hms.user.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,8 +33,11 @@ public class UserDTO {
     @NotNull(message = "Role is required")
     private Roles role;
     private Long profileId;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public User toEntity() {
-        return new User(this.id, this.name, this.email, this.password, this.role, this.profileId);
+        return new User(this.id, this.name, this.email, this.password, this.role, this.profileId, this.createdAt,
+                this.updatedAt);
     }
 }

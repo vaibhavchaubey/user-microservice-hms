@@ -1,5 +1,8 @@
 package com.hms.user.service;
 
+import java.util.List;
+
+import com.hms.user.dto.RegisterationCountsDTO;
 import com.hms.user.dto.UserDTO;
 import com.hms.user.exception.HmsException;
 
@@ -15,4 +18,6 @@ public interface UserService {
     public UserDTO getUser(String email) throws HmsException;
 
     public Long getProfile(Long id) throws HmsException;
+
+    public RegisterationCountsDTO getMonthlyRegistrationCounts() throws HmsException;
 }

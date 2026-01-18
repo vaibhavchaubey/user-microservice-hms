@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.user.dto.LoginDTO;
+import com.hms.user.dto.RegisterationCountsDTO;
 import com.hms.user.dto.ResponseDTO;
 import com.hms.user.dto.UserDTO;
 import com.hms.user.exception.HmsException;
@@ -78,5 +79,10 @@ public class UserAPI {
     @GetMapping("/getProfile/{id}")
     public ResponseEntity<Long> getProfile(@PathVariable Long id) throws HmsException {
         return new ResponseEntity<>(userService.getProfile(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getRegisterationCounts")
+    public ResponseEntity<RegisterationCountsDTO> getMonthlyRegistrationCounts() throws HmsException {
+        return new ResponseEntity<>(userService.getMonthlyRegistrationCounts(), HttpStatus.OK);
     }
 }

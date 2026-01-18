@@ -1,5 +1,7 @@
 package com.hms.user.entity;
 
+import java.time.LocalDateTime;
+
 import com.hms.user.dto.Roles;
 import com.hms.user.dto.UserDTO;
 import jakarta.persistence.*;
@@ -21,9 +23,25 @@ public class User {
     private String password;
     private Roles role;
     private Long profileId;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
     public UserDTO toDTO() {
-        return new UserDTO(this.id, this.name, this.email, this.password, this.role, this.profileId);
+        return new UserDTO(this.id, this.name, this.email, this.password, this.role, this.profileId, this.createdAt,
+                this.updatedAt);
     }
 
+    @PrePersist
+    protected void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
