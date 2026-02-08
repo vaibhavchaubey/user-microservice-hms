@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.hms.user.config.FeignClientInterceptor;
 import com.hms.user.dto.UserDTO;
 
-@FeignClient(name = "profile-microservice-hms", configuration = FeignClientInterceptor.class)
+@FeignClient(name = "profile-microservice-hms", url="${profile-microservice-hms.url}", configuration = FeignClientInterceptor.class)
 public interface ProfileClient {
 
     @PostMapping("/profile/doctor/add")
